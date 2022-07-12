@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import useSelectMonedas from '../hooks/useSelectMonedas'
 import {monedas} from '../data/monedas'
 import { useEffect } from 'react'
+import useSelectCripMonedas from '../hooks/useSelecCripto'
 
 const InputSubmit = styled.input`
     background-color:#E7460E;
@@ -30,7 +31,7 @@ const Formulario = () =>{
     const [criptos, setCriptos] = useState([])
 
     const [moneda, SelectMonedas] = useSelectMonedas('Elige tu moneda',monedas)
-    //const [moneda, SelectMonedas] = useSelectMonedas('Elige tu moneda',monedas)
+    const [criptomoneda, SelectCriptomonedas] = useSelectCripMonedas('Elige tu criptomoneda',criptos)
 
     useEffect(() => {
         const consultarApi = async () => {
@@ -39,12 +40,11 @@ const Formulario = () =>{
             const resultado= await respuesta.json()   
            
             
-          const arrayCriptos = resultado.Data.map(cripto =>{
-
-                console.log(cripto.coinInfo)
-                const objeto ={
+          const arrayCriptos = resultado.Data.map(cripto => {
+            console.log(cripto)
+                const objeto = {
                     id: cripto.CoinInfo.Name,
-                    nombre: cripto.CoinInfo.Fullname
+                    nombre: cripto.CoinInfo.FullName
                 }
                 return objeto
             })
@@ -58,12 +58,14 @@ const Formulario = () =>{
         <form>
             
             <SelectMonedas />
+            <SelectCriptomonedas/>
       
             
 
             <InputSubmit
                  type="submit" 
-                 value="Cotizar"/>
+                 value="Cotizar"
+            />
 
         </form>
 

@@ -1,6 +1,6 @@
 const monedas = [
     {id: 'USD', nombre: 'Dolar Estadounidense'},
-    {id: 'ARG', nombre: 'Peso Argentino'},
+    {id: 'ARS', nombre: 'Peso Argentino'},
     {id: 'EUR', nombre: 'Euro'},
     {id: 'GBP', nombre: 'Libra Esterlina'},
     {id: 'MXN', nombre: 'Peso Mexicano'},
