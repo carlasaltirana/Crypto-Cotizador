@@ -6,28 +6,25 @@ import {monedas} from '../data/monedas'
 import { useEffect } from 'react'
 import useSelectCripMonedas from '../hooks/useSelecCripto'
 
-const InputSubmit = styled.input`
-    background-color:#E7460E;
-    border: none;
-    width:100%;
-    padding:10px;
-    color: #fff;
-    font-weight:700;
-    text-transform: uppercase;
-    border-radius:5px;
-    font-size:20px;
-    transition:background-color .3s ease;
-    margin-top:25px;
+const InputSubmit = 
+    styled.input`
+        background-color:#E7460E;
+        border: none;
+        width:100%;
+        padding:10px;
+        color: #fff;
+        font-weight:700;
+        text-transform: uppercase;
+        border-radius:5px;
+        font-size:20px;
+        transition:background-color .3s ease;
+        margin-top:25px;
 
-    &:hover{
-        background-color:#A1340E;
-    }
+        &:hover{
+            background-color:#A1340E;
+        }`
 
-`
-
-
-
-const Formulario = () =>{
+const Formulario = ({setMonedas}) =>{
 
     const [criptos, setCriptos] = useState([])
     const [error, setError] = useState(false)
@@ -37,54 +34,50 @@ const Formulario = () =>{
 
     useEffect(() => {
         const consultarApi = async () => {
-            const url = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=ARS"
-            const respuesta = await fetch(url)
-            const resultado = await respuesta.json()   
-           
+            const url = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=ARS`;
+            const respuesta = await fetch(url);
+            const resultado = await respuesta.json();
             
-          const arrayCriptos = resultado.Data.map(cripto => {
+            const arrayCriptos = resultado.Data.map(cripto => {
                 const objeto = {
                     id: cripto.CoinInfo.Name,
                     nombre: cripto.CoinInfo.FullName
                 }
-                return objeto
+                return objeto;
             })
          
-            setCriptos(arrayCriptos)
+            setCriptos(arrayCriptos);
         }
         consultarApi();
     },[])
 
     const handleSubmit = e => {
-        e.preventDefault()
+        e.preventDefault();
 
-       if([moneda,criptomoneda].includes('')){
-            setError(true)
-        return
-       }
+        if([moneda,criptomoneda].includes('')){
+            setError(true);
+            return;
+        }
 
-       setError(false)
+        setError(false);
+        setMonedas({
+            moneda,
+            criptomoneda
+        });
     }
 
     return(
         <>
             {error && <Error>Todos los campos son obligatorios</Error>}
-            <form
-                onSubmit={handleSubmit}    
-            >
-                
+            <form onSubmit={handleSubmit}> 
                 <SelectMonedas />
                 <SelectCriptomonedas/>
-        
-                
-
                 <InputSubmit
                     type="submit" 
                     value="Cotizar"
                 />
-
             </form>
-            </>
+        </>
     )
 }
 
