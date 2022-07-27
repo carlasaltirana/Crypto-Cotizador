@@ -34,7 +34,7 @@ const Formulario = ({setMonedas}) =>{
 
     useEffect(() => {
         const consultarApi = async () => {
-            const url = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=ARS`;
+            const url = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=15&tsym=ARS`;
             const respuesta = await fetch(url);
             const resultado = await respuesta.json();
             
