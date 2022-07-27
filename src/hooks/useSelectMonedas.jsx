@@ -10,20 +10,11 @@ font-weight:700;
 margin: 15px 0;
 `
 const Select = styled.select `
-width:80%;
+width:100%;
 font-size:18px;
 padding:14px;
 border-radius:10px;
-
 `
-const CantidadMonedas =styled.input`
-width:10%;
-font-size:18px;
-padding:14px;
-border-radius:10px;
-margin: 5px;
-`
-
 const useSelectMonedas = (label,opciones) => {
    
     const [state, setState] = useState ('')
@@ -31,7 +22,7 @@ const useSelectMonedas = (label,opciones) => {
     const SelectMonedas = () => (
         <>
             <Label>{label}</Label>
-            <CantidadMonedas></CantidadMonedas>
+            
             <Select 
                     value={state}
                     onChange = { e => setState (e.target.value)}
@@ -46,7 +37,8 @@ const useSelectMonedas = (label,opciones) => {
                         value = {opcion.id}
                         
 
-                >{opcion.nombre}</option>
+                >{opcion.nombre}
+                </option>
 
             ))}
             </Select>
@@ -56,7 +48,7 @@ const useSelectMonedas = (label,opciones) => {
      
     )
 
-    return [ state,SelectMonedas]
+    return [state, SelectMonedas]
 
 }
 
